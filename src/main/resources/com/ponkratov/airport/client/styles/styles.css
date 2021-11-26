@@ -1,0 +1,67 @@
+.root {
+    /*-fx-background-image: url('../img/background.png');
+    -fx-background-size: stretch;
+    -fx-pref-width: 970px;
+    -fx-pref-height: 550px;
+    -fx-background-radius: 15px;
+    -fx-padding: 0;*/
+}
+
+.text-field {
+    -fx-text-fill: #122A3A;
+    -fx-font-size: 13px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 15px;
+    -fx-background-color: transparent;
+    -fx-border-color: #122A3A;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: #122A3A;
+    -fx-padding: 2 30;
+}
+
+#loginContainer {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 350px;
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 15px;
+    -fx-translate-x: 40px;
+    -fx-translate-y: 95px;
+}
+
+#loginDataContainer {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 250px;
+    -fx-translate-x: 50px;
+    -fx-translate-y: 50px;
+}
+
+#headerLabel {
+    -fx-text-fill: #122A3A;
+    -fx-font-size: 20px;
+}
+
+#loginButton {
+    -fx-background-color: #3D228A;
+    -fx-background-radius: 7px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-text-alignment: center;
+    -fx-pref-width: 125px;
+    -fx-pref-height: 25px;
+    -fx-padding: 5px;
+    -fx-alignment: center;
+}
+
+#loginButton:hover {
+    -fx-background-color: #4B49B5;
+}
+
+#loginButton:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+#messageLabel {
+    -fx-text-fill: #122A3A;
+    -fx-font-size: 13px;
+}
