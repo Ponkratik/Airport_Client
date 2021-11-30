@@ -1,6 +1,7 @@
 package com.ponkratov.airport.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ponkratov.airport.client.entity.User;
 import com.ponkratov.airport.client.tcpconnection.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,6 +60,12 @@ public class MainWindowController {
         messageLabel.setText(response.getResponseMessage());
         if (response.getResponseStatus().equals(ResponseStatus.OK)) {
             System.out.println("Login successful");
+            User user = new ObjectMapper().readValue(response.getResponseData(), User.UserBuilder.class).createUser();
+            ClientSocket.setCurrnetUser(user);
+            BaseMenu baseMenu = new BaseMenu();
+            baseMenu.showWindow();
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.close();
         }
     }
 
