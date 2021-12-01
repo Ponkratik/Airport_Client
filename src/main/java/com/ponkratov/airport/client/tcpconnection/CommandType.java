@@ -10,6 +10,7 @@ public class CommandType {
     public static String RESTOREPASSWORD = "RESTOREPASSWORD";
     public static String BLOCKUSER = "BLOCKUSER";
     public static String UPDATEUSERROLE = "UPDATEUSERROLE";
+    public static String UPDATEUSER = "UPDATEUSER";
 
     public static String FINDALLROLES = "FINDALLROLES";
     public static String FINDROLEBYID = "FINDROLEBYID";

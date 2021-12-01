@@ -24,6 +24,11 @@
     -fx-font-size: 21px;
 }
 
+#messageLabel {
+    -fx-text-fill: #122A3A;
+    -fx-font-size: 13px;
+}
+
 .text-field {
     -fx-text-fill: #122A3A;
     -fx-font-size: 13px;
