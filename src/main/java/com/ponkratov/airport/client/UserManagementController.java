@@ -1,6 +1,5 @@
 package com.ponkratov.airport.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.Role;
 import com.ponkratov.airport.client.entity.User;
@@ -20,6 +19,21 @@ public class UserManagementController {
 
     @FXML
     public Label messageLabel;
+
+    @FXML
+    public ComboBox<String> searchComboBox;
+
+    @FXML
+    public TextField searchField;
+
+    @FXML
+    public Label searchLabel;
+
+    @FXML
+    public Button searchButton;
+
+    @FXML
+    public Button restorePasswordButton;
 
     @FXML
     private Button actionButton;
@@ -60,8 +74,6 @@ public class UserManagementController {
     private TableView.TableViewSelectionModel<User> selectionModel;
 
     public void initialize() throws IOException, ClassNotFoundException {
-        messageLabel.setText("");
-
         TableColumn<User, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("userID"));
         contentTableView.getColumns().add(idColumn);
@@ -89,8 +101,7 @@ public class UserManagementController {
 
         fillTable();
 
-        ObservableList<String> roles = findRoles();
-        roleComboBox.setItems(roles);
+        roleComboBox.setItems(findRoles());
 
         selectionModel = contentTableView.getSelectionModel();
         selectionModel.selectedItemProperty().addListener((observableValue, user, t1) -> {
@@ -103,14 +114,31 @@ public class UserManagementController {
             }
         });
 
-        onEditButton(null);
+
+        ObservableList<String> searchConditions = FXCollections.observableArrayList(
+                "Логин",
+                "Эл.почта",
+                "Роль",
+                "ФИО"
+        );
+        searchComboBox.setItems(searchConditions);
+        searchComboBox.getSelectionModel().selectFirst();
+
+        if (contentTableView.getItems().size() != 0) {
+            onEditButton(null);
+        } else {
+            onAddButton(null);
+        }
     }
 
     public void onAddButton(ActionEvent event) {
         menuHeaderLabel.setText("Регистрация");
         contentTableView.setDisable(true);
         blockCheckBox.setVisible(false);
+        searchComboBox.setDisable(true);
+        searchField.setDisable(true);
         clearFields();
+        roleComboBox.getSelectionModel().selectFirst();
         editButton.setStyle("-fx-text-fill: #122A3A; -fx-background-color: transparent");
         addButton.setStyle("-fx-background-color: #584694; -fx-text-fill: #FFFFFF");
         actionButton.setText("Зарегистрировать");
@@ -120,6 +148,8 @@ public class UserManagementController {
         menuHeaderLabel.setText("Редактирование");
         contentTableView.setDisable(false);
         blockCheckBox.setVisible(true);
+        searchComboBox.setDisable(false);
+        searchField.setDisable(false);
         addButton.setStyle("-fx-text-fill: #122A3A; -fx-background-color: transparent");
         editButton.setStyle("-fx-background-color: #584694; -fx-text-fill: #FFFFFF");
         actionButton.setText("Сохранить");
@@ -134,6 +164,19 @@ public class UserManagementController {
         surNameField.clear();
         blockCheckBox.setSelected(false);
         roleComboBox.setValue("");
+    }
+
+    public void disableFields(boolean disable) {
+        loginField.setDisable(disable);
+        emailField.setDisable(disable);
+        lastNameField.setDisable(disable);
+        firstNameField.setDisable(disable);
+        surNameField.setDisable(disable);
+        blockCheckBox.setDisable(disable);
+        roleComboBox.setDisable(disable);
+        actionButton.setDisable(disable);
+        addButton.setDisable(disable);
+        editButton.setDisable(disable);
     }
 
     public void fillFields(User user) throws IOException, ClassNotFoundException {
@@ -152,18 +195,26 @@ public class UserManagementController {
     }
 
     public void selectFirst() throws IOException, ClassNotFoundException {
-        contentTableView.requestFocus();
-        contentTableView.getFocusModel().focus(0);
-        selectionModel.selectFirst();
-        fillFields(selectionModel.getSelectedItem());
+        if (contentTableView.getItems().size() == 0) {
+            disableFields(true);
+            addButton.setDisable(true);
+            editButton.setDisable(true);
+        } else {
+            disableFields(false);
+            addButton.setDisable(false);
+            editButton.setDisable(false);
+            contentTableView.requestFocus();
+            contentTableView.getFocusModel().focus(0);
+            selectionModel.selectFirst();
+            fillFields(selectionModel.getSelectedItem());
+        }
     }
 
     public ObservableList<User> findUsers() throws IOException, ClassNotFoundException {
         ObservableList<User> users= FXCollections.observableArrayList();
 
         Request request = new Request();
-        String command = CommandType.FINDALLUSERS;
-        request.setRequestCommand(command);
+        request.setRequestCommand(CommandType.FINDALLUSERS);
         ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
         CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
         if (response.getResponseStatus().equals(ResponseStatus.OK)) {
@@ -252,13 +303,64 @@ public class UserManagementController {
         request.setRequestParams(params);
         ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
         CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        fillTable();
+        onEditButton(null);
         if (response.getResponseStatus().equals(ResponseStatus.OK)) {
             messageLabel.setText("");
         } else {
             messageLabel.setText(response.getResponseMessage());
         }
+    }
 
-        fillTable();
-        onEditButton(null);
+    public void onSearchButton(ActionEvent event) throws IOException, ClassNotFoundException {
+        Request request = new Request();
+        Map<String, String> params = new HashMap<>();
+        switch (searchComboBox.getSelectionModel().getSelectedIndex()) {
+            case 0 -> {
+                request.setRequestCommand(CommandType.FINDUSERSBYLOGINREGEXP);
+            }
+            case 1 -> {
+                request.setRequestCommand(CommandType.FINDUSERBYEMAIL);
+            }
+            case 2 -> {
+                request.setRequestCommand(CommandType.FINDUSERSBYROLE);
+            }
+            case 3 -> {
+                request.setRequestCommand(CommandType.FINDUSERSBYNAMEREGEXP);
+            }
+        }
+
+        if (searchField.getText().equals("")) {
+            request.setRequestCommand(CommandType.FINDALLUSERS);
+        }
+
+        params.put(RequestAttribute.SEARCHCONDITION, searchField.getText());
+        request.setRequestParams(params);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        if (response.getResponseStatus().equals(ResponseStatus.OK)) {
+            messageLabel.setText("");
+            ObservableList<User> users = FXCollections.observableArrayList();
+            User.UserBuilder[] temp = new ObjectMapper().readValue(response.getResponseData(), User.UserBuilder[].class);
+            for (User.UserBuilder userBuilder : temp) {
+                users.add(userBuilder.createUser());
+            }
+            contentTableView.setItems(users);
+            selectFirst();
+        } else {
+            messageLabel.setText(response.getResponseMessage());
+        }
+    }
+
+    public void onRestorePasswordButton(ActionEvent event) throws IOException, ClassNotFoundException {
+        Request request = new Request();
+        request.setRequestCommand(CommandType.RESTOREPASSWORD);
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestAttribute.USERID, String.valueOf(contentTableView.getSelectionModel().getSelectedItem().getUserID()));
+        request.setRequestParams(params);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        messageLabel.setText(response.getResponseMessage());
     }
 }

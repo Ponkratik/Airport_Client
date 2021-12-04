@@ -6,29 +6,69 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="460.0" prefWidth="765.0" stylesheets="@styles/content-style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ponkratov.airport.client.UserManagementController">
    <children>
-      <AnchorPane layoutX="515.0" prefHeight="460.0" prefWidth="250.0">
+      <AnchorPane layoutX="515.0" prefHeight="475.0" prefWidth="250.0">
          <children>
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddButton" prefHeight="30.0" prefWidth="100.0" text="Регистрация" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
             <Button fx:id="editButton" layoutX="136.0" layoutY="10.0" mnemonicParsing="false" onAction="#onEditButton" prefHeight="30.0" prefWidth="100.0" text="Редактирование" AnchorPane.rightAnchor="15.0" />
-            <Label fx:id="menuHeaderLabel" layoutX="15.0" layoutY="55.0" text="Редактирование" />
-            <TextField fx:id="loginField" layoutX="15.0" layoutY="105.0" promptText="Логин" />
-            <TextField fx:id="emailField" layoutX="15.0" layoutY="150.0" promptText="Эл.почта" />
-            <TextField fx:id="lastNameField" layoutX="15.0" layoutY="195.0" promptText="Фамилия" />
-            <TextField fx:id="firstNameField" layoutX="15.0" layoutY="240.0" promptText="Имя" />
-            <TextField fx:id="surNameField" layoutX="15.0" layoutY="285.0" promptText="Отчество" />
-            <ComboBox fx:id="roleComboBox" layoutX="15.0" layoutY="330.0" prefWidth="200.0" />
-            <Button fx:id="actionButton" layoutX="15.0" layoutY="420.0" mnemonicParsing="false" onAction="#onActionButton" text="Сохранить" />
-            <CheckBox fx:id="blockCheckBox" layoutX="15.0" layoutY="375.0" mnemonicParsing="false" text="Заблокирован" />
+            <Label fx:id="menuHeaderLabel" layoutX="15.0" layoutY="46.0" text="Редактирование" />
+            <TextField fx:id="loginField" layoutX="15.0" layoutY="78.0" promptText="Логин" />
+            <TextField fx:id="emailField" layoutX="15.0" layoutY="123.0" promptText="Эл.почта" />
+            <TextField fx:id="lastNameField" layoutX="15.0" layoutY="168.0" promptText="Фамилия" />
+            <TextField fx:id="firstNameField" layoutX="15.0" layoutY="213.0" promptText="Имя" />
+            <TextField fx:id="surNameField" layoutX="15.0" layoutY="258.0" promptText="Отчество" />
+            <ComboBox fx:id="roleComboBox" layoutX="15.0" layoutY="303.0" prefWidth="200.0" />
+            <Button fx:id="actionButton" layoutX="15.0" layoutY="387.0" mnemonicParsing="false" onAction="#onActionButton" text="Сохранить" />
+            <CheckBox fx:id="blockCheckBox" layoutX="15.0" layoutY="343.0" mnemonicParsing="false" text="Заблокирован" />
+            <Button fx:id="restorePasswordButton" layoutX="15.0" layoutY="426.0" mnemonicParsing="false" onAction="#onRestorePasswordButton" text="Сбросить пароль" />
+            <ImageView layoutX="10.0" layoutY="75.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5">
+               <image>
+                  <Image url="@img/user.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="120.0" scaleX="0.5" scaleY="0.5">
+               <image>
+                  <Image url="@img/email.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="165.0" scaleX="0.5" scaleY="0.5">
+               <image>
+                  <Image url="@img/id-card.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="210.0" scaleX="0.5" scaleY="0.5">
+               <image>
+                  <Image url="@img/id-card.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="10.0" layoutY="255.0" scaleX="0.5" scaleY="0.5">
+               <image>
+                  <Image url="@img/id-card.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="475.0" prefWidth="515.0">
          <children>
-            <TableView fx:id="contentTableView" layoutX="15.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" />
-            <Label fx:id="messageLabel" alignment="CENTER" layoutX="15.0" layoutY="445.0" prefHeight="20.0" prefWidth="485.0" text="Label" />
+            <TableView fx:id="contentTableView" layoutX="15.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" />
+            <Label fx:id="messageLabel" alignment="CENTER" layoutX="15.0" layoutY="429.0" prefHeight="20.0" prefWidth="485.0" text="Сообщение" />
+            <ComboBox fx:id="searchComboBox" layoutX="89.0" layoutY="9.0" prefHeight="26.0" prefWidth="127.0" />
+            <TextField fx:id="searchField" layoutX="252.0" layoutY="9.0" promptText="Текст для поиска" />
+            <Label fx:id="searchLabel" alignment="CENTER" layoutX="39.0" layoutY="14.0" prefHeight="20.0" text="Поиск: " />
+            <Button fx:id="searchButton" layoutX="462.0" layoutY="8.0" mnemonicParsing="false" onAction="#onSearchButton">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0">
+                     <image>
+                        <Image url="@img/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </children>

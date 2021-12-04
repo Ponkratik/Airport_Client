@@ -22,6 +22,11 @@
                <Font size="14.0" />
             </font>
          </Button>
+         <Button fx:id="planeManagementButton" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="204.0" mnemonicParsing="false" onAction="#onPlaneManagementButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Управление авиапарком" textAlignment="CENTER" textFill="#fafafa">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
          <Button fx:id="airportTabloButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Табло аэропорта" textAlignment="CENTER" textFill="#fafafa">
             <font>
                <Font size="14.0" />
@@ -37,22 +42,31 @@
    <AnchorPane fx:id="contentAnchorPane" layoutX="200.0" layoutY="80.0" prefHeight="460.0" prefWidth="765.0" style="-fx-background-color: #FAFAFA;" />
    <AnchorPane fx:id="headerAnchorPane" layoutX="200.0" prefHeight="80.0" prefWidth="765.0" style="-fx-background-color: #FAFAFA;">
       <children>
-         <Label fx:id="currentTimeLabel" alignment="BOTTOM_CENTER" layoutX="650.0" prefHeight="40.0" prefWidth="115.0" text="14:30" textFill="#122a3a">
+         <Label fx:id="currentTimeLabel" alignment="BOTTOM_CENTER" layoutX="640.0" prefHeight="40.0" prefWidth="115.0" text="14:30" textFill="#122a3a">
             <font>
                <Font size="24.0" />
             </font>
          </Label>
-         <Label fx:id="currentDateLabel" alignment="TOP_CENTER" layoutX="650.0" layoutY="40.0" prefHeight="40.0" prefWidth="115.0" text="29.11.2021" textFill="#122a3a">
+         <Label fx:id="currentDateLabel" alignment="TOP_CENTER" layoutX="640.0" layoutY="40.0" prefHeight="40.0" prefWidth="115.0" text="29.11.2021" textFill="#122a3a">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
-         <Label fx:id="currentUserLabel" alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="650.0" text="Понкратов Алексей Михайлович" textAlignment="CENTER" textFill="#122a3a">
+         <Label fx:id="currentUserLabel" alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="640.0" text="Понкратов Алексей Михайлович" textAlignment="CENTER" textFill="#122a3a">
             <font>
                <Font size="16.0" />
             </font>
          </Label>
-         <Label fx:id="currentUserRoleLabel" alignment="TOP_RIGHT" layoutY="40.0" prefHeight="40.0" prefWidth="650.0" text="Системный администратор" textAlignment="CENTER" textFill="#122a3a" />
+         <Label fx:id="currentUserRoleLabel" alignment="TOP_RIGHT" layoutY="40.0" prefHeight="40.0" prefWidth="640.0" text="Системный администратор" textAlignment="CENTER" textFill="#122a3a" />
+         <Button fx:id="closeButton" layoutX="730.0" mnemonicParsing="false" onAction="#onCloseButton" prefHeight="20.0" prefWidth="32.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: transparent;">
+            <graphic>
+               <ImageView>
+                  <image>
+                     <Image url="@img/CloseButton.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
       </children>
    </AnchorPane>
 </AnchorPane>

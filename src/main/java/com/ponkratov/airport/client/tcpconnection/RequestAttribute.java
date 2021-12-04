@@ -14,4 +14,10 @@ public class RequestAttribute {
     public static final String USERCURRENTBLOCK = "userCurrentBlock";
     public static final String ROLEID = "roleID";
     public static final String ROLENAME = "roleName";
+    public static final String SEARCHCONDITION = "searchContidion";
+
+    public static final String PLANEID = "planeID";
+    public static final String PLANEMODEL = "planeModel";
+    public static final String PLANENUMBER = "planeNumber";
+    public static final String SEATSQUANTITY = "seatsQuantity";
 }

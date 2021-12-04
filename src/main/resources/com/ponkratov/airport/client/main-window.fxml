@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="root" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ponkratov.airport.client.MainWindowController">
 <children>
       <ImageView fitHeight="550.0" fitWidth="970.0" layoutX="-5.0" layoutY="-2.0">
@@ -20,12 +21,31 @@
                 <children>
                     <Label fx:id="headerLabel" text="Вход в аккаунт" />
                     <TextField fx:id="loginField" layoutY="70.0" promptText="Логин" />
-                    <TextField fx:id="passwordField" layoutY="113.0" promptText="Пароль" />
+                    <PasswordField fx:id="passwordField" layoutY="113.0" promptText="Пароль" />
                     <Button fx:id="loginButton" layoutX="37.0" layoutY="180.0" mnemonicParsing="false" onAction="#loginButtonClicked" text="Войти" />
                   <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="215.0" prefHeight="19.0" prefWidth="200.0" text="Сообщение" textAlignment="CENTER" />
+                  <ImageView layoutY="65.0" scaleX="0.5" scaleY="0.5">
+                     <image>
+                        <Image url="@img/user.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutY="107.0" scaleX="0.5" scaleY="0.5">
+                     <image>
+                        <Image url="@img/padlock.png" />
+                     </image>
+                  </ImageView>
                 </children>
             </AnchorPane>
         </children>
     </AnchorPane>
+    <Button fx:id="closeButton" layoutX="930.0" mnemonicParsing="false" onAction="#onCloseButton" prefHeight="20.0" prefWidth="32.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: transparent;">
+        <graphic>
+            <ImageView>
+                <image>
+                    <Image url="@img/CloseButton.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 </children>
 </AnchorPane>

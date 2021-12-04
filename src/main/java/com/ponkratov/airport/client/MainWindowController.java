@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -16,6 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainWindowController {
+
+    @FXML
+    public Button closeButton;
 
     @FXML
     private Label headerLabel;
@@ -36,7 +40,7 @@ public class MainWindowController {
     private Label messageLabel;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
 
     @FXML
     public void initialize() throws IOException {
@@ -69,4 +73,8 @@ public class MainWindowController {
         }
     }
 
+    public void onCloseButton(ActionEvent event) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
 }
