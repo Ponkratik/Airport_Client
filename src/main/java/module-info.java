@@ -2,6 +2,7 @@ module com.ponkratov.airport.client {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
+    requires java.sql;
 
 
     opens com.ponkratov.airport.client to javafx.fxml;

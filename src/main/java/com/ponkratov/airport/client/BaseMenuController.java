@@ -27,6 +27,9 @@ public class BaseMenuController {
     public Button planeManagementButton;
 
     @FXML
+    public Button flightManagementButton;
+
+    @FXML
     private Button airportTabloButton;
 
     @FXML
@@ -66,6 +69,7 @@ public class BaseMenuController {
             case 1 -> {
                 mainMenu.getChildren().add(userManagementButton);
                 mainMenu.getChildren().add(planeManagementButton);
+                mainMenu.getChildren().add(flightManagementButton);
             }
             case 2 -> {
 
@@ -94,6 +98,18 @@ public class BaseMenuController {
         deselectAll();
         planeManagementButton.setUnderline(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("plane-management.fxml"));
+        AnchorPane newPane = loader.load();
+        contentAnchorPane.getChildren().setAll(newPane);
+        AnchorPane.setBottomAnchor(newPane, 0.0);
+        AnchorPane.setTopAnchor(newPane, 0.0);
+        AnchorPane.setLeftAnchor(newPane, 0.0);
+        AnchorPane.setRightAnchor(newPane, 0.0);
+    }
+
+    public void onFlightManagementButton(ActionEvent actionEvent) throws IOException {
+        deselectAll();
+        flightManagementButton.setUnderline(true);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("flight-management.fxml"));
         AnchorPane newPane = loader.load();
         contentAnchorPane.getChildren().setAll(newPane);
         AnchorPane.setBottomAnchor(newPane, 0.0);

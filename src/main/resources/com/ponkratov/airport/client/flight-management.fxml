@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="460.0" prefWidth="765.0" stylesheets="@styles/content-style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ponkratov.airport.client.FlightManagementController">
+   <children>
+      <AnchorPane fx:id="viewPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0" visible="false">
+         <TableView fx:id="contentTableView" layoutX="15.0" layoutY="20.0" prefHeight="400.0" prefWidth="485.0" />
+         <Button fx:id="editNavigationButton" layoutX="535.0" layoutY="365.0" mnemonicParsing="false" onAction="#onEditNavigationButton" text="Редактировать" />
+      </AnchorPane>
+      <Button fx:id="addButton" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddButton" stylesheets="@styles/content-style.css" text="Добавление" />
+      <Button fx:id="editButton" layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#onEditButton" stylesheets="@styles/content-style.css" text="Редактирование" />
+      <Button fx:id="viewButton" layoutX="315.0" layoutY="10.0" mnemonicParsing="false" onAction="#onViewButton" stylesheets="@styles/content-style.css" text="Просмотр" />
+      <AnchorPane fx:id="addPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0">
+         <children>
+            <Label fx:id="addHeaderLabel" layoutX="50.0" layoutY="15.0" text="Добавление" />
+            <DatePicker fx:id="depTimePicker" layoutX="50.0" layoutY="80.0" promptText="Дата вылета" />
+            <DatePicker fx:id="arrTimePicker" layoutX="50.0" layoutY="130.0" promptText="Дата прилёта" />
+            <ComboBox fx:id="airportComboBox" layoutX="50.0" layoutY="180.0" prefHeight="29.0" prefWidth="226.0" />
+            <CheckBox fx:id="arrivalCheckBox" layoutX="50.0" layoutY="230.0" mnemonicParsing="false" text="Прибывающий" />
+            <ComboBox fx:id="planeComboBox" layoutX="50.0" layoutY="280.0" prefHeight="29.0" prefWidth="226.0" />
+            <Label fx:id="pilotListLabel" layoutX="335.0" layoutY="80.0" text="Пилоты" />
+            <ListView fx:id="pilotsListView" layoutX="335.0" layoutY="105.0" prefHeight="205.0" prefWidth="190.0" />
+            <Label fx:id="stewardListLabel" layoutX="550.0" layoutY="79.0" text="Стюарды(-ессы)" />
+            <ListView fx:id="stewardsListView" layoutX="550.0" layoutY="104.0" prefHeight="205.0" prefWidth="190.0" />
+            <Button fx:id="addActionButton" layoutX="550.0" layoutY="356.0" mnemonicParsing="false" onAction="#onAddActionButton" text="Создать" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

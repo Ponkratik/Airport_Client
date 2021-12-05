@@ -1,4 +1,4 @@
-#addButton, #editButton
+#addButton, #editButton, #viewButton
 {
     -fx-background-color: #584694;
     -fx-background-radius: 27px;
@@ -10,7 +10,7 @@
     -fx-alignment: center;
 }
 
-#addButton:hover, #editButton:hover, #actionButton:hover, #restorePasswordButton:hover, #searchButton:hover{
+#addButton:hover, #editButton:hover, #actionButton:hover, #restorePasswordButton:hover, #searchButton:hover, #viewButton:hover, #editNavigationButton:hover, #addActionButton:hover {
     -fx-background-color: #4B49B5;
 }
 
@@ -19,17 +19,17 @@
     -fx-scale-y: 0.95;
 }
 
-#menuHeaderLabel {
+#menuHeaderLabel, #addHeaderLabel {
     -fx-text-fill: #122A3A;
     -fx-font-size: 21px;
 }
 
-#messageLabel {
+#messageLabel, #pilotListLabel {
     -fx-text-fill: #122A3A;
     -fx-font-size: 13px;
 }
 
-.text-field {
+.text-field, .date-picker > .text-field {
     -fx-text-fill: #122A3A;
     -fx-font-size: 13px;
     -fx-pref-width: 200px;
@@ -39,6 +39,10 @@
     -fx-border-width: 0 0 1 0;
     -fx-prompt-text-fill: #122A3A;
     -fx-padding: 2 30;
+}
+
+.date-picker, .date-picker {
+    -fx-background-color: transparent;
 }
 
 #roleComboBox {
@@ -54,6 +58,19 @@
     -fx-font-size: 13px;
 }
 
+#planeComboBox, #airportComboBox {
+      -fx-pref-width: 225px;
+      -fx-pref-height: 15px;
+      -fx-background-radius: 10px;
+      -fx-background-color: #FFFFFF;
+      -fx-border-width: 1px;
+      -fx-border-radius: 10px;
+      -fx-border-color: #122A3A;
+      -fx-padding: 0 0 0 30;
+      -fx-text-fill: #122A3A;
+      -fx-font-size: 13px;
+  }
+
 #searchComboBox {
     -fx-pref-width: 150px;
     -fx-pref-height: 15px;
@@ -67,7 +84,7 @@
     -fx-font-size: 13px;
 }
 
-#actionButton, #restorePasswordButton {
+#actionButton, #restorePasswordButton, #editNavigationButton, #addActionButton {
     -fx-pref-width: 200px;
     -fx-pref-height: 30px;
     -fx-background-color: #3D228A;
@@ -87,7 +104,7 @@
     -fx-text-alignment: center;
 }
 
-#blockCheckBox {
+#blockCheckBox, #arrivalCheckBox {
     -fx-pref-width: 200px;
     -fx-pref-height: 30px;
     -fx-text-fill: #122A3A;
@@ -95,14 +112,14 @@
     -fx-text-alignment: center;
 }
 
-#blockCheckBox .box {
+#blockCheckBox .box, #arrivalCheckBox .box {
     -fx-background-color: #FFFFFF;
     -fx-border-width: 1px;
     -fx-border-color: #000000;
     -fx-border-radius: 5px;
 }
 
-#blockCheckBox:selected .mark {
+#blockCheckBox:selected .mark, #arrivalCheckBox:selected .mark {
     -fx-background-color: #000000;
 }
 

@@ -1,9 +1,7 @@
 package com.ponkratov.airport.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.Plane;
-import com.ponkratov.airport.client.entity.User;
 import com.ponkratov.airport.client.tcpconnection.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
