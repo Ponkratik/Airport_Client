@@ -18,7 +18,7 @@
       <Button fx:id="addButton" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddButton" stylesheets="@styles/content-style.css" text="Добавление" />
       <Button fx:id="editButton" layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#onEditButton" stylesheets="@styles/content-style.css" text="Редактирование" />
       <Button fx:id="viewButton" layoutX="315.0" layoutY="10.0" mnemonicParsing="false" onAction="#onViewButton" stylesheets="@styles/content-style.css" text="Просмотр" />
-      <AnchorPane fx:id="addPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0">
+      <AnchorPane fx:id="addEditPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0">
          <children>
             <Label fx:id="addHeaderLabel" layoutX="50.0" layoutY="15.0" text="Добавление" />
             <DatePicker fx:id="depTimePicker" layoutX="50.0" layoutY="80.0" promptText="Дата вылета" />
@@ -30,7 +30,9 @@
             <ListView fx:id="pilotsListView" layoutX="335.0" layoutY="105.0" prefHeight="205.0" prefWidth="190.0" />
             <Label fx:id="stewardListLabel" layoutX="550.0" layoutY="79.0" text="Стюарды(-ессы)" />
             <ListView fx:id="stewardsListView" layoutX="550.0" layoutY="104.0" prefHeight="205.0" prefWidth="190.0" />
-            <Button fx:id="addActionButton" layoutX="550.0" layoutY="356.0" mnemonicParsing="false" onAction="#onAddActionButton" text="Создать" />
+            <Button fx:id="addEditActionButton" layoutX="550.0" layoutY="356.0" mnemonicParsing="false" onAction="#onAddEditActionButton" text="Создать" />
+            <Label fx:id="messageLabel" layoutX="50.0" layoutY="370.0" text="Сообщение" />
+            <ComboBox fx:id="flightStatusComboBox" layoutX="50.0" layoutY="330.0" prefHeight="29.0" prefWidth="226.0" />
          </children>
       </AnchorPane>
    </children>

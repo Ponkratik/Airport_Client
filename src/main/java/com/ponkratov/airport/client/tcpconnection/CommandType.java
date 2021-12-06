@@ -27,6 +27,18 @@ public class CommandType {
     public static String DELETEPLANE = "DELETEPLANE";
     public static String FINDPLANEBYNUMBER = "FINDPLANEBYNUMBER";
     public static String FINDPLANESBYMODELREGEXP = "FINDPLANESBYMODELREGEXP";
+    public static String FINDPLANEBYID = "FINDPLANEBYID";
+
+    public static String FINDALLFLIGHTSTATUSES = "FINDALLFLIGHTSTATUSES";
+    public static String FINDFLIGHTSTATUSBYNAME = "FINDFLIGHTSTATUSBYNAME";
+    public static String FINDFLIGHTSTATUSBYID = "FINDFLIGHTSTATUSBYID";
+
+    public static String FINDALLFLIGHTS = "FINDALLFLIGHTS";
+    public static String FINDDEPARRFLIGHTS = "FINDDEPARRFLIGHTS";
+    public static String CREATEFLIGHT = "CREATEFLIGHT";
+    public static String UPDATEFLIGHT = "UPDATEFLIGHT";
+
+    public static String FINDALLAIRPORTS = "FINDALLAIRPORTS";
 
     public static String DEFAULT = "DEFAULT";
 }

@@ -20,4 +20,13 @@ public class RequestAttribute {
     public static final String PLANEMODEL = "planeModel";
     public static final String PLANENUMBER = "planeNumber";
     public static final String SEATSQUANTITY = "seatsQuantity";
+
+    public static final String FLIGHTSTATUSID = "flightStatusID";
+    public static final String STATUSNAME = "statusName";
+
+    public static final String FLIGHTID = "flightID";
+    public static final String DEPTIME = "depTime";
+    public static final String ARRTIME = "arrTime";
+    public static final String IATACODE = "IATACode";
+    public static final String ISARRIVAL = "isArrival";
 }

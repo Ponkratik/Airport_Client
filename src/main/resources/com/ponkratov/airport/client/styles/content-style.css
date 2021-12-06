@@ -58,7 +58,7 @@
     -fx-font-size: 13px;
 }
 
-#planeComboBox, #airportComboBox {
+#planeComboBox, #airportComboBox, #flightStatusComboBox {
       -fx-pref-width: 225px;
       -fx-pref-height: 15px;
       -fx-background-radius: 10px;
@@ -84,7 +84,7 @@
     -fx-font-size: 13px;
 }
 
-#actionButton, #restorePasswordButton, #editNavigationButton, #addActionButton {
+#actionButton, #restorePasswordButton, #editNavigationButton, #addEditActionButton {
     -fx-pref-width: 200px;
     -fx-pref-height: 30px;
     -fx-background-color: #3D228A;

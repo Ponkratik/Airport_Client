@@ -231,7 +231,7 @@ public class UserManagementController {
     }
 
     public ObservableList<String> findRoles() throws IOException, ClassNotFoundException {
-        ObservableList<String> roles= FXCollections.observableArrayList();
+        ObservableList<String> roles = FXCollections.observableArrayList();
 
         Request request = new Request();
         request.setRequestCommand(CommandType.FINDALLROLES);
@@ -351,6 +351,7 @@ public class UserManagementController {
         } else {
             messageLabel.setText(response.getResponseMessage());
         }
+        onEditButton(null);
     }
 
     public void onRestorePasswordButton(ActionEvent event) throws IOException, ClassNotFoundException {
