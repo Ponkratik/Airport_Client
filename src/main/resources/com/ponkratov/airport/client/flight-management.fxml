@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -21,8 +22,8 @@
       <AnchorPane fx:id="addEditPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0">
          <children>
             <Label fx:id="addHeaderLabel" layoutX="50.0" layoutY="15.0" text="Добавление" />
-            <DatePicker fx:id="depTimePicker" layoutX="50.0" layoutY="80.0" promptText="Дата вылета" />
-            <DatePicker fx:id="arrTimePicker" layoutX="50.0" layoutY="130.0" promptText="Дата прилёта" />
+            <DatePicker fx:id="depTimePicker" layoutX="50.0" layoutY="80.0" promptText="Вылет" />
+            <DatePicker fx:id="arrTimePicker" layoutX="50.0" layoutY="130.0" promptText="Прилёт" />
             <ComboBox fx:id="airportComboBox" layoutX="50.0" layoutY="180.0" prefHeight="29.0" prefWidth="226.0" />
             <CheckBox fx:id="arrivalCheckBox" layoutX="50.0" layoutY="230.0" mnemonicParsing="false" text="Прибывающий" />
             <ComboBox fx:id="planeComboBox" layoutX="50.0" layoutY="280.0" prefHeight="29.0" prefWidth="226.0" />
@@ -33,6 +34,10 @@
             <Button fx:id="addEditActionButton" layoutX="550.0" layoutY="356.0" mnemonicParsing="false" onAction="#onAddEditActionButton" text="Создать" />
             <Label fx:id="messageLabel" layoutX="50.0" layoutY="370.0" text="Сообщение" />
             <ComboBox fx:id="flightStatusComboBox" layoutX="50.0" layoutY="330.0" prefHeight="29.0" prefWidth="226.0" />
+            <Spinner fx:id="depHSpinner" layoutX="187.0" layoutY="79.0" prefHeight="25.0" prefWidth="50.0" />
+            <Spinner fx:id="depMSpinner" layoutX="250.0" layoutY="79.0" prefHeight="25.0" prefWidth="50.0" />
+            <Spinner fx:id="arrHSpinner" layoutX="187.0" layoutY="130.0" prefHeight="25.0" prefWidth="50.0" />
+            <Spinner fx:id="arrMSpinner" layoutX="250.0" layoutY="130.0" prefHeight="25.0" prefWidth="50.0" />
          </children>
       </AnchorPane>
    </children>

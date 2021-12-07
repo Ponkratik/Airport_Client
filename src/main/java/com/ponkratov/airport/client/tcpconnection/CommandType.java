@@ -40,5 +40,8 @@ public class CommandType {
 
     public static String FINDALLAIRPORTS = "FINDALLAIRPORTS";
 
+    public static String FINDTEAMBYFLIGHTID = "FINDTEAMBYFLIGHTID";
+    public static String UPDATETEAM = "UPDATETEAM";
+
     public static String DEFAULT = "DEFAULT";
 }

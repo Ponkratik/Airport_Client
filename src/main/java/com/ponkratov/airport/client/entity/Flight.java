@@ -37,7 +37,7 @@ public class Flight implements Entity {
         return IATACode;
     }
 
-    public boolean isArrival() {
+    public boolean getIsArrival() {
         return isArrival;
     }
 

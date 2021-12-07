@@ -29,7 +29,7 @@
     -fx-font-size: 13px;
 }
 
-.text-field, .date-picker > .text-field {
+.text-field {
     -fx-text-fill: #122A3A;
     -fx-font-size: 13px;
     -fx-pref-width: 200px;
@@ -39,6 +39,36 @@
     -fx-border-width: 0 0 1 0;
     -fx-prompt-text-fill: #122A3A;
     -fx-padding: 2 30;
+}
+
+.spinner > .text-field {
+    -fx-text-fill: #122A3A;
+    -fx-font-size: 13px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 15px;
+    -fx-background-color: transparent;
+    -fx-border-color: #122A3A;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: #122A3A;
+    -fx-padding: 2 5;
+    -fx-alignment: center;
+}
+
+.spinner {
+    -fx-background-color: transparent;
+}
+
+.date-picker > .text-field {
+    -fx-text-fill: #122A3A;
+    -fx-font-size: 13px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 15px;
+    -fx-background-color: transparent;
+    -fx-border-color: #122A3A;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: #122A3A;
+    -fx-padding: 2 5;
+    -fx-alignment: center;
 }
 
 .date-picker, .date-picker {

@@ -1,6 +1,5 @@
 package com.ponkratov.airport.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.*;
 import com.ponkratov.airport.client.tcpconnection.*;
@@ -81,10 +80,23 @@ public class FlightManagementController {
     @FXML
     public ComboBox<String> flightStatusComboBox;
 
+    @FXML
+    public Spinner<Integer> depHSpinner;
+
+    @FXML
+    public Spinner<Integer> depMSpinner;
+
+    @FXML
+    public Spinner<Integer> arrHSpinner;
+
+    @FXML
+    public Spinner<Integer> arrMSpinner;
+
     private TableView.TableViewSelectionModel<Flight> selectionModel;
 
     public void initialize() throws IOException, ClassNotFoundException {
         messageLabel.setText("");
+        editButton.setDisable(true);
         TableColumn<Flight, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<Flight, Integer>("flightID"));
         contentTableView.getColumns().add(idColumn);
@@ -114,6 +126,16 @@ public class FlightManagementController {
         airportComboBox.setItems(findAirports());
         planeComboBox.setItems(findPlanes());
         flightStatusComboBox.setItems(findFlightStatuses());
+
+        depHSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 1));
+        depMSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 1));
+        arrHSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 1));
+        arrMSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 1));
+
+        pilotsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        stewardsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        pilotsListView.setItems(findAllUsersByRole(4));
+        stewardsListView.setItems(findAllUsersByRole(5));
 
         onViewButton(null);
     }
@@ -149,7 +171,7 @@ public class FlightManagementController {
         viewButton.setStyle("-fx-background-color: #584694; -fx-text-fill: #FFFFFF");
     }
 
-    public void onEditNavigationButton(ActionEvent actionEvent) {
+    public void onEditNavigationButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
         onEditButton(null);
         fillFields(selectionModel.getSelectedItem());
     }
@@ -164,8 +186,8 @@ public class FlightManagementController {
             params.put(RequestAttribute.FLIGHTID, String.valueOf(selectionModel.getSelectedItem().getFlightID()));
         }
 
-        params.put(RequestAttribute.DEPTIME, depTimePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
-        params.put(RequestAttribute.ARRTIME, arrTimePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+        params.put(RequestAttribute.DEPTIME, depTimePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + depHSpinner.getValue() + ":" + depMSpinner.getValue() + ":00");
+        params.put(RequestAttribute.ARRTIME, arrTimePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + arrHSpinner.getValue() + ":" + arrMSpinner.getValue() + ":00");
         params.put(RequestAttribute.IATACODE, airportComboBox.getValue());
         params.put(RequestAttribute.ISARRIVAL, String.valueOf(arrivalCheckBox.isSelected()));
         params.put(RequestAttribute.PLANEID, String.valueOf(getPlaneID(planeComboBox.getValue())));
@@ -189,18 +211,27 @@ public class FlightManagementController {
         contentTableView.setItems(flights);
     }
 
-    public void fillFields(Flight flight) {
+    public void fillFields(Flight flight) throws IOException, ClassNotFoundException {
         depTimePicker.setValue(LocalDate.from(flight.getDepTime().toLocalDateTime()));
+        depMSpinner.getValueFactory().setValue(flight.getDepTime().toLocalDateTime().getMinute());
+        depHSpinner.getValueFactory().setValue(flight.getDepTime().toLocalDateTime().getHour());
         arrTimePicker.setValue(LocalDate.from(flight.getArrTime().toLocalDateTime()));
+        arrHSpinner.getValueFactory().setValue(flight.getArrTime().toLocalDateTime().getHour());
+        arrMSpinner.getValueFactory().setValue(flight.getArrTime().toLocalDateTime().getMinute());
         airportComboBox.getSelectionModel().select(flight.getIATACode());
-        arrivalCheckBox.setSelected(flight.isArrival());
-        planeComboBox.getSelectionModel().select(flight.getPlaneID());
+        arrivalCheckBox.setSelected(flight.getIsArrival());
+        planeComboBox.getSelectionModel().select(getPlaneNumber(flight.getPlaneID()));
+        flightStatusComboBox.getSelectionModel().select(getflightStatusName(flight.getFlightStatusID()));
         //заполнение листвью пилотав и стюардов
     }
 
     public void clearFields() {
         depTimePicker.setValue(LocalDate.now());
         arrTimePicker.setValue(LocalDate.now());
+        depHSpinner.getValueFactory().setValue(1);
+        depMSpinner.getValueFactory().setValue(1);
+        arrHSpinner.getValueFactory().setValue(1);
+        arrMSpinner.getValueFactory().setValue(1);
         airportComboBox.getSelectionModel().selectFirst();
         arrivalCheckBox.setSelected(false);
         planeComboBox.getSelectionModel().selectFirst();
@@ -290,6 +321,30 @@ public class FlightManagementController {
         return flightStatuses;
     }
 
+    public ObservableList<String> findAllUsersByRole(int roleID) throws IOException, ClassNotFoundException {
+        ObservableList<String> users = FXCollections.observableArrayList();
+
+        Request request = new Request();
+        request.setRequestCommand(CommandType.FINDUSERSBYROLE);
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestAttribute.SEARCHCONDITION, String.valueOf(roleID));
+        request.setRequestParams(params);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        if (response.getResponseStatus().equals(ResponseStatus.OK)) {
+            messageLabel.setText("");
+
+            User.UserBuilder[] temp1 = new ObjectMapper().readValue(response.getResponseData(), User.UserBuilder[].class);
+            for (User.UserBuilder userBuilder: temp1) {
+                User user = userBuilder.createUser();
+                users.add(user.getLogin());
+            }
+        } else {
+            messageLabel.setText(response.getResponseMessage());
+        }
+        return users;
+    }
+
     public int getFlightStatusID(String statusName) throws IOException, ClassNotFoundException {
         Request request = new Request();
         request.setRequestCommand(CommandType.FINDFLIGHTSTATUSBYNAME);
@@ -356,10 +411,17 @@ public class FlightManagementController {
         CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
         if (response.getResponseStatus().equals(ResponseStatus.OK)) {
             messageLabel.setText("");
-            return new ObjectMapper().readValue(response.getResponseData(), Plane.class).getPlaneNumber();
+
+            Plane.PlaneBuilder temp1 = new ObjectMapper().readValue(response.getResponseData(), Plane.PlaneBuilder.class);
+            Plane plane;
+            plane = temp1.createPlane();
+
+            return plane.getPlaneNumber();
         } else {
             messageLabel.setText(response.getResponseMessage());
             return "";
         }
     }
+
+
 }
