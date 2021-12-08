@@ -53,9 +53,11 @@ public class User implements Entity{
         return userPictureLink;
     }
 
-    public boolean getIsBlocked() {
+    public boolean isBlocked() {
         return isBlocked;
     }
+
+    public boolean getIsBlocked() { return isBlocked; }
 
     public int getRoleID() {
         return roleID;

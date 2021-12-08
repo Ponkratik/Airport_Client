@@ -15,6 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +33,9 @@ public class BaseMenuController {
 
     @FXML
     public Button flightManagementButton;
+
+    @FXML
+    public Button ownFlightsTabloButton;
 
     @FXML
     private Button airportTabloButton;
@@ -60,6 +68,8 @@ public class BaseMenuController {
     private Button userManagementButton;
 
     public void initialize() throws IOException, ClassNotFoundException {
+        currentDateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        currentTimeLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
         currentUserLabel.setText(ClientSocket.getCurrnetUser().getLastName() + " "
                 + ClientSocket.getCurrnetUser().getFirstName() + " "
                 + ClientSocket.getCurrnetUser().getSurName());
@@ -70,9 +80,16 @@ public class BaseMenuController {
                 mainMenu.getChildren().add(userManagementButton);
                 mainMenu.getChildren().add(planeManagementButton);
                 mainMenu.getChildren().add(flightManagementButton);
+                mainMenu.getChildren().add(ownFlightsTabloButton);
             }
             case 2 -> {
-
+                mainMenu.getChildren().add(flightManagementButton);
+            }
+            case 3 -> {
+                mainMenu.getChildren().add(planeManagementButton);
+            }
+            case 4, 5 -> {
+                mainMenu.getChildren().add(ownFlightsTabloButton);
             }
         }
         mainMenu.getChildren().add(airportTabloButton);
@@ -110,6 +127,31 @@ public class BaseMenuController {
         deselectAll();
         flightManagementButton.setUnderline(true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("flight-management.fxml"));
+        AnchorPane newPane = loader.load();
+        contentAnchorPane.getChildren().setAll(newPane);
+        AnchorPane.setBottomAnchor(newPane, 0.0);
+        AnchorPane.setTopAnchor(newPane, 0.0);
+        AnchorPane.setLeftAnchor(newPane, 0.0);
+        AnchorPane.setRightAnchor(newPane, 0.0);
+    }
+
+    public void onOwnFlightsTabloButton(ActionEvent actionEvent) throws IOException {
+        deselectAll();
+        ownFlightsTabloButton.setUnderline(true);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("own-flights-view.fxml"));
+        AnchorPane newPane = loader.load();
+        contentAnchorPane.getChildren().setAll(newPane);
+        AnchorPane.setBottomAnchor(newPane, 0.0);
+        AnchorPane.setTopAnchor(newPane, 0.0);
+        AnchorPane.setLeftAnchor(newPane, 0.0);
+        AnchorPane.setRightAnchor(newPane, 0.0);
+    }
+
+
+    public void onAirportTabloButton(ActionEvent actionEvent) throws IOException {
+        deselectAll();
+        airportTabloButton.setUnderline(true);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("airport-tablo.fxml"));
         AnchorPane newPane = loader.load();
         contentAnchorPane.getChildren().setAll(newPane);
         AnchorPane.setBottomAnchor(newPane, 0.0);
@@ -156,5 +198,4 @@ public class BaseMenuController {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
 }

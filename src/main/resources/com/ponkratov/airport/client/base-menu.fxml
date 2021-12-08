@@ -32,7 +32,12 @@
                <Font size="14.0" />
             </font>
          </Button>
-         <Button fx:id="airportTabloButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Табло аэропорта" textAlignment="CENTER" textFill="#fafafa">
+         <Button fx:id="ownFlightsTabloButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onOwnFlightsTabloButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Мои полёты" textAlignment="CENTER" textFill="#fafafa">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+         <Button fx:id="airportTabloButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAirportTabloButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Табло аэропорта" textAlignment="CENTER" textFill="#fafafa">
             <font>
                <Font size="14.0" />
             </font>

@@ -1,4 +1,4 @@
-#addButton, #editButton, #viewButton
+#addButton, #editButton, #viewButton, #depButton, #arrButton
 {
     -fx-background-color: #584694;
     -fx-background-radius: 27px;
@@ -10,7 +10,7 @@
     -fx-alignment: center;
 }
 
-#addButton:hover, #editButton:hover, #actionButton:hover, #restorePasswordButton:hover, #searchButton:hover, #viewButton:hover, #editNavigationButton:hover, #addActionButton:hover {
+#addButton:hover, #editButton:hover, #actionButton:hover, #restorePasswordButton:hover, #searchButton:hover, #viewButton:hover, #editNavigationButton:hover, #addActionButton:hover, #depButton:hover, #arrButton:hover {
     -fx-background-color: #4B49B5;
 }
 
@@ -24,7 +24,7 @@
     -fx-font-size: 21px;
 }
 
-#messageLabel, #pilotListLabel {
+#messageLabel, #pilotListLabel, #planeNumberLabel, #flightStatusLabel {
     -fx-text-fill: #122A3A;
     -fx-font-size: 13px;
 }

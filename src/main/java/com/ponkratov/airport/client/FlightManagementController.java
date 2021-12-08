@@ -1,5 +1,6 @@
 package com.ponkratov.airport.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.*;
 import com.ponkratov.airport.client.tcpconnection.*;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -196,14 +198,29 @@ public class FlightManagementController {
         ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
         CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
 
+        if (response.getResponseStatus().equals(ResponseStatus.OK)) {
+            messageLabel.setText("");
+        } else {
+            messageLabel.setText(response.getResponseMessage());
+        }
         fillTable();
-        onViewButton(null);
+        selectionModel.selectLast();
+
+        request.setRequestCommand(CommandType.UPDATETEAM);
+        params.clear();
+        params.put(RequestAttribute.TEAMMEMBERS, new ObjectMapper().writeValueAsString(getSelectedTeam()));
+        params.put(RequestAttribute.FLIGHTID, String.valueOf(selectionModel.getSelectedItem().getFlightID()));
+        request.setRequestParams(params);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
 
         if (response.getResponseStatus().equals(ResponseStatus.OK)) {
             messageLabel.setText("");
         } else {
             messageLabel.setText(response.getResponseMessage());
         }
+
+        onViewButton(null);
     }
 
     public void fillTable() throws IOException, ClassNotFoundException {
@@ -222,16 +239,16 @@ public class FlightManagementController {
         arrivalCheckBox.setSelected(flight.getIsArrival());
         planeComboBox.getSelectionModel().select(getPlaneNumber(flight.getPlaneID()));
         flightStatusComboBox.getSelectionModel().select(getflightStatusName(flight.getFlightStatusID()));
-        //заполнение листвью пилотав и стюардов
+        fillTeamListView(flight.getFlightID());
     }
 
     public void clearFields() {
         depTimePicker.setValue(LocalDate.now());
         arrTimePicker.setValue(LocalDate.now());
-        depHSpinner.getValueFactory().setValue(1);
-        depMSpinner.getValueFactory().setValue(1);
+        depHSpinner.getValueFactory().setValue(0);
+        depMSpinner.getValueFactory().setValue(0);
         arrHSpinner.getValueFactory().setValue(1);
-        arrMSpinner.getValueFactory().setValue(1);
+        arrMSpinner.getValueFactory().setValue(10);
         airportComboBox.getSelectionModel().selectFirst();
         arrivalCheckBox.setSelected(false);
         planeComboBox.getSelectionModel().selectFirst();
@@ -345,6 +362,76 @@ public class FlightManagementController {
         return users;
     }
 
+    public ObservableList<User> findTeamMembers(int flightID) throws IOException, ClassNotFoundException {
+        ObservableList<User> teamMembers = FXCollections.observableArrayList();
+
+        Request request = new Request();
+        request.setRequestCommand(CommandType.FINDTEAMBYFLIGHTID);
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestAttribute.FLIGHTID, String.valueOf(flightID));
+        request.setRequestParams(params);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        if (response.getResponseStatus().equals(ResponseStatus.OK)) {
+            messageLabel.setText("");
+
+            User.UserBuilder[] temp1 = new ObjectMapper().readValue(response.getResponseData(), User.UserBuilder[].class);
+            for (User.UserBuilder userBuilder: temp1) {
+                User user = userBuilder.createUser();
+                teamMembers.add(user);
+            }
+        } else {
+            messageLabel.setText(response.getResponseMessage());
+        }
+        return teamMembers;
+    }
+
+    public void fillTeamListView(int flightID) throws IOException, ClassNotFoundException {
+        ObservableList<User> teamMembers = findTeamMembers(flightID);
+
+        pilotsListView.getSelectionModel().clearSelection();
+        for (User teamMember : teamMembers) {
+            if (teamMember.getRoleID() == 4) {
+                pilotsListView.getSelectionModel().select(teamMember.getLogin());
+            } else {
+                stewardsListView.getSelectionModel().select(teamMember.getLogin());
+            }
+        }
+    }
+
+    public ArrayList<User> getSelectedTeam() throws IOException, ClassNotFoundException {
+        ArrayList<User> teamMembers = new ArrayList<>();
+        ObservableList<String> pilotsList = pilotsListView.getSelectionModel().getSelectedItems();
+        for (String pilotLogin : pilotsList) {
+            teamMembers.add(getUserByLogin(pilotLogin));
+        }
+
+        ObservableList<String> stewardsList = stewardsListView.getSelectionModel().getSelectedItems();
+        for (String stewardLogin : stewardsList) {
+            teamMembers.add(getUserByLogin(stewardLogin));
+        }
+
+        return teamMembers;
+    }
+
+    public User getUserByLogin(String login) throws IOException, ClassNotFoundException {
+        Request request = new Request();
+        request.setRequestCommand(CommandType.FINDUSERSBYLOGINREGEXP);
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestAttribute.SEARCHCONDITION, login);
+        request.setRequestParams(params);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        if (response.getResponseStatus().equals(ResponseStatus.OK)) {
+            messageLabel.setText("");
+            User.UserBuilder[] temp = new ObjectMapper().readValue(response.getResponseData(), User.UserBuilder[].class);
+            return temp[0].createUser();
+        } else {
+            messageLabel.setText(response.getResponseMessage());
+            return null;
+        }
+    }
+
     public int getFlightStatusID(String statusName) throws IOException, ClassNotFoundException {
         Request request = new Request();
         request.setRequestCommand(CommandType.FINDFLIGHTSTATUSBYNAME);
@@ -422,6 +509,4 @@ public class FlightManagementController {
             return "";
         }
     }
-
-
 }

@@ -37,6 +37,7 @@ public class CommandType {
     public static String FINDDEPARRFLIGHTS = "FINDDEPARRFLIGHTS";
     public static String CREATEFLIGHT = "CREATEFLIGHT";
     public static String UPDATEFLIGHT = "UPDATEFLIGHT";
+    public static String FINDOWNFLIGHTS = "FINDOWNFLIGHTS";
 
     public static String FINDALLAIRPORTS = "FINDALLAIRPORTS";
 

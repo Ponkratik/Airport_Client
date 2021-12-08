@@ -185,7 +185,7 @@ public class UserManagementController {
         lastNameField.setText(user.getLastName());
         firstNameField.setText(user.getFirstName());
         surNameField.setText(user.getSurName());
-        blockCheckBox.setSelected(user.getIsBlocked());
+        blockCheckBox.setSelected(user.isBlocked());
         roleComboBox.setValue(getRoleName(user.getRoleID()));
     }
 
@@ -347,6 +347,7 @@ public class UserManagementController {
                 users.add(userBuilder.createUser());
             }
             contentTableView.setItems(users);
+            clearFields();
             selectFirst();
         } else {
             messageLabel.setText(response.getResponseMessage());

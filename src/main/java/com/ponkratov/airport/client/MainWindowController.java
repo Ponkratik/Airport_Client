@@ -5,14 +5,13 @@ import com.ponkratov.airport.client.entity.User;
 import com.ponkratov.airport.client.tcpconnection.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,8 +43,17 @@ public class MainWindowController {
 
     @FXML
     public void initialize() throws IOException {
-        ClientSocket.getInstance();
-        messageLabel.setText("");
+        try {
+            ClientSocket.getInstance();
+            messageLabel.setText("");
+        } catch (ConnectException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Невозможно подключиться к серверу");
+            alert.setContentText("Вероятно, сервер не запущен");
+            alert.showAndWait();
+            System.exit(0);
+        }
     }
 
     @FXML

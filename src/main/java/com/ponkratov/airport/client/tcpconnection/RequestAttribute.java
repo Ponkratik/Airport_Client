@@ -29,4 +29,6 @@ public class RequestAttribute {
     public static final String ARRTIME = "arrTime";
     public static final String IATACODE = "IATACode";
     public static final String ISARRIVAL = "isArrival";
+
+    public static final String TEAMMEMBERS = "teamMembers";
 }
