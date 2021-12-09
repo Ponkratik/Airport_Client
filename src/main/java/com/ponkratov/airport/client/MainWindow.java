@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainWindow extends Application {
+    Stage stage = new Stage();
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
@@ -26,5 +28,10 @@ public class MainWindow extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public void showWindow() throws IOException {
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/airport.png"))));
+        start(stage);
     }
 }

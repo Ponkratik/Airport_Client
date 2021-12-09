@@ -16,6 +16,11 @@ public class TextReportGenerator<T extends Entity> {
 
         try {
             File file = fileChooser.showSaveDialog(window);
+
+            if (file == null) {
+                return false;
+            }
+
             FileWriter fileWriter = new FileWriter(file);
             for (T member : observableList) {
                 fileWriter.write(member.toReport());

@@ -13,7 +13,7 @@
       <PasswordField fx:id="oldPasswordField" layoutX="50.0" layoutY="75.0" promptText="Старый пароль" />
       <PasswordField fx:id="newPasswordField" layoutX="50.0" layoutY="120.0" promptText="Новый пароль" />
       <PasswordField fx:id="reNewPasswordField" layoutX="50.0" layoutY="165.0" promptText="Повтор нового пароля" />
-      <Button fx:id="actionButton" layoutX="53.0" layoutY="346.0" mnemonicParsing="false" onAction="#onActionButton" text="Сменить пароль" />
+      <Button fx:id="actionButton" layoutX="50.0" layoutY="345.0" mnemonicParsing="false" onAction="#onActionButton" text="Сменить пароль" />
       <ImageView layoutX="50.0" layoutY="70.0" scaleX="0.5" scaleY="0.5">
          <image>
             <Image url="@img/padlock.png" />
@@ -29,6 +29,7 @@
             <Image url="@img/padlock.png" />
          </image>
       </ImageView>
-      <Label fx:id="messageLabel" alignment="CENTER" layoutX="50.0" layoutY="385.0" prefHeight="20.0" prefWidth="200.0" text="Сообщение" />
+      <Label fx:id="messageLabel" alignment="CENTER" layoutX="50.0" layoutY="385.0" prefHeight="20.0" prefWidth="435.0" text="Сообщение" />
+      <Button fx:id="logoutButton" layoutX="285.0" layoutY="345.0" mnemonicParsing="false" onAction="#onLogoutButton" text="Выход" />
    </children>
 </AnchorPane>
