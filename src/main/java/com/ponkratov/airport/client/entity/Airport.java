@@ -25,4 +25,9 @@ public class Airport implements Entity {
     public String getCity() {
         return city;
     }
+
+    @Override
+    public String toReport() {
+        return null;
+    }
 }

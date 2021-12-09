@@ -25,7 +25,7 @@
             <ComboBox fx:id="roleComboBox" layoutX="15.0" layoutY="303.0" prefWidth="200.0" />
             <Button fx:id="actionButton" layoutX="15.0" layoutY="387.0" mnemonicParsing="false" onAction="#onActionButton" text="Сохранить" />
             <CheckBox fx:id="blockCheckBox" layoutX="15.0" layoutY="343.0" mnemonicParsing="false" text="Заблокирован" />
-            <Button fx:id="restorePasswordButton" layoutX="15.0" layoutY="426.0" mnemonicParsing="false" onAction="#onRestorePasswordButton" text="Сбросить пароль" />
+            <Button fx:id="restorePasswordButton" layoutX="15.0" layoutY="425.0" mnemonicParsing="false" onAction="#onRestorePasswordButton" text="Сбросить пароль" />
             <ImageView layoutX="10.0" layoutY="75.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5">
                <image>
                   <Image url="@img/user.png" />
@@ -56,7 +56,7 @@
       <AnchorPane prefHeight="475.0" prefWidth="515.0">
          <children>
             <TableView fx:id="contentTableView" layoutX="15.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" />
-            <Label fx:id="messageLabel" alignment="CENTER" layoutX="15.0" layoutY="429.0" prefHeight="20.0" prefWidth="485.0" text="Сообщение" />
+            <Label fx:id="messageLabel" alignment="CENTER" layoutX="15.0" layoutY="429.0" prefHeight="20.0" prefWidth="335.0" text="Сообщение" />
             <ComboBox fx:id="searchComboBox" layoutX="89.0" layoutY="9.0" prefHeight="26.0" prefWidth="127.0" />
             <TextField fx:id="searchField" layoutX="252.0" layoutY="9.0" promptText="Текст для поиска" />
             <Label fx:id="searchLabel" alignment="CENTER" layoutX="39.0" layoutY="14.0" prefHeight="20.0" text="Поиск: " />
@@ -69,6 +69,8 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="reportButton" layoutX="430.0" layoutY="425.0" mnemonicParsing="false" onAction="#onReportButton" prefHeight="30.0" prefWidth="100.0" text="Отчёт" />
+            <Button fx:id="chartButton" layoutX="355.0" layoutY="425.0" mnemonicParsing="false" onAction="#onChartButton" prefHeight="30.0" prefWidth="100.0" text="График" />
          </children>
       </AnchorPane>
    </children>

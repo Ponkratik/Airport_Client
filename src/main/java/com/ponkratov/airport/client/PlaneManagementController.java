@@ -2,7 +2,9 @@ package com.ponkratov.airport.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.Plane;
+import com.ponkratov.airport.client.entity.User;
 import com.ponkratov.airport.client.tcpconnection.*;
+import com.ponkratov.airport.client.util.TextReportGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +21,9 @@ public class PlaneManagementController {
     @FXML
     public TableView<Plane> contentTableView;
     private TableView.TableViewSelectionModel<Plane> selectionModel;
+
+    @FXML
+    public Button reportButton;
 
     @FXML
     public Label messageLabel;
@@ -237,5 +242,13 @@ public class PlaneManagementController {
             messageLabel.setText(response.getResponseMessage());
         }
         return planes;
+    }
+
+    public void onReportButton(ActionEvent actionEvent) {
+        TextReportGenerator<Plane> reportGenerator= new TextReportGenerator<>();
+        boolean isGenerated = reportGenerator.generateReport(reportButton.getScene().getWindow(), contentTableView.getItems());
+        if (!isGenerated) {
+            messageLabel.setText("Не удалось сгенерировать отчёт");
+        }
     }
 }

@@ -5,6 +5,7 @@ import com.ponkratov.airport.client.entity.Flight;
 import com.ponkratov.airport.client.entity.FlightStatus;
 import com.ponkratov.airport.client.entity.Plane;
 import com.ponkratov.airport.client.tcpconnection.*;
+import com.ponkratov.airport.client.util.TextReportGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +47,9 @@ public class AirportTabloController {
 
     @FXML
     public TextField flightStatusNameField;
+
+    @FXML
+    public Button reportButton;
 
     public void initialize() throws IOException, ClassNotFoundException {
         messageLabel.setText("");
@@ -164,6 +168,14 @@ public class AirportTabloController {
         } else {
             messageLabel.setText(response.getResponseMessage());
             return "";
+        }
+    }
+
+    public void onReportButton(ActionEvent actionEvent) {
+        TextReportGenerator<Flight> reportGenerator= new TextReportGenerator<>();
+        boolean isGenerated = reportGenerator.generateReport(reportButton.getScene().getWindow(), contentTableView.getItems());
+        if (!isGenerated) {
+            messageLabel.setText("Не удалось сгенерировать отчёт");
         }
     }
 }

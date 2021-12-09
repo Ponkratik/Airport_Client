@@ -4,16 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.Role;
 import com.ponkratov.airport.client.entity.User;
 import com.ponkratov.airport.client.tcpconnection.*;
+import com.ponkratov.airport.client.util.PieChartGenerator;
+import com.ponkratov.airport.client.util.TextReportGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserManagementController {
 
@@ -34,6 +38,12 @@ public class UserManagementController {
 
     @FXML
     public Button restorePasswordButton;
+
+    @FXML
+    public Button reportButton;
+
+    @FXML
+    public Button chartButton;
 
     @FXML
     private Button actionButton;
@@ -107,6 +117,7 @@ public class UserManagementController {
         selectionModel.selectedItemProperty().addListener((observableValue, user, t1) -> {
             if (t1 != null && menuHeaderLabel.getText().equals("Редактирование")) {
                 try {
+                    messageLabel.setText("");
                     fillFields(t1);
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
@@ -364,5 +375,28 @@ public class UserManagementController {
         ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
         CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
         messageLabel.setText(response.getResponseMessage());
+    }
+
+    public void onReportButton(ActionEvent actionEvent) {
+        TextReportGenerator<User> reportGenerator= new TextReportGenerator<>();
+        boolean isGenerated = reportGenerator.generateReport(reportButton.getScene().getWindow(), contentTableView.getItems());
+        if (!isGenerated) {
+            messageLabel.setText("Не удалось сгенерировать отчёт");
+        }
+    }
+
+    public void onChartButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        PieChartWindow window = new PieChartWindow();
+        window.stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/airport.png"))));
+        PieChartGenerator.setMenuHeaderLabel("Распределение сотрудников по должностям");
+        Map<String, Integer> data;
+        Request request = new Request();
+        request.setRequestCommand(CommandType.COUNTUSERSFOREACHROLE);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        messageLabel.setText(response.getResponseMessage());
+        data = (Map<String, Integer>) new ObjectMapper().readValue(response.getResponseData(), Map.class);
+        PieChartGenerator.setPieChartData(data);
+        window.showWindow();
     }
 }

@@ -5,8 +5,10 @@ import com.ponkratov.airport.client.entity.Flight;
 import com.ponkratov.airport.client.entity.FlightStatus;
 import com.ponkratov.airport.client.entity.Plane;
 import com.ponkratov.airport.client.tcpconnection.*;
+import com.ponkratov.airport.client.util.TextReportGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -44,6 +46,9 @@ public class OwnFlightsViewController {
 
     @FXML
     public Label messageLabel;
+
+    @FXML
+    public Button reportButton;
 
     public void initialize() {
         messageLabel.setText("");
@@ -159,6 +164,14 @@ public class OwnFlightsViewController {
         } else {
             messageLabel.setText(response.getResponseMessage());
             return "";
+        }
+    }
+
+    public void onReportButton(ActionEvent actionEvent) {
+        TextReportGenerator<Flight> reportGenerator= new TextReportGenerator<>();
+        boolean isGenerated = reportGenerator.generateReport(reportButton.getScene().getWindow(), contentTableView.getItems());
+        if (!isGenerated) {
+            messageLabel.setText("Не удалось сгенерировать отчёт");
         }
     }
 }

@@ -88,6 +88,17 @@ public class User implements Entity{
         return Objects.hash(userID, login, email, lastName, firstName, surName, userPictureLink, isBlocked, roleID);
     }
 
+    public String toReport() {
+        return "ID пользователя: " + userID
+                + "\nЛогин: " + login
+                + "\nЭл.почта: " + email
+                + "\nФамилия: " + lastName
+                + "\nИмя: " + firstName
+                + "\nОтчество: " + surName
+                + "\nЗаблокирован: " + (isBlocked ? "Да" : "Нет")
+                + "\nID должности: " + roleID;
+    }
+
     public static class UserBuilder {
         private int userID;
         private String login;

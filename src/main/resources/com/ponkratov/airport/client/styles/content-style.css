@@ -10,7 +10,7 @@
     -fx-alignment: center;
 }
 
-#addButton:hover, #editButton:hover, #actionButton:hover, #restorePasswordButton:hover, #searchButton:hover, #viewButton:hover, #editNavigationButton:hover, #addActionButton:hover, #depButton:hover, #arrButton:hover {
+#addButton:hover, #editButton:hover, #actionButton:hover, #restorePasswordButton:hover, #searchButton:hover, #viewButton:hover, #editNavigationButton:hover, #addActionButton:hover, #depButton:hover, #arrButton:hover, #reportButton:hover, #chartButton:hover {
     -fx-background-color: #4B49B5;
 }
 
@@ -116,6 +116,16 @@
 
 #actionButton, #restorePasswordButton, #editNavigationButton, #addEditActionButton {
     -fx-pref-width: 200px;
+    -fx-pref-height: 30px;
+    -fx-background-color: #3D228A;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-text-alignment: center;
+}
+
+#reportButton, #chartButton {
+    -fx-pref-width: 70px;
     -fx-pref-height: 30px;
     -fx-background-color: #3D228A;
     -fx-background-radius: 10px;

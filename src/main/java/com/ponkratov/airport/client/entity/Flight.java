@@ -49,6 +49,16 @@ public class Flight implements Entity {
         return flightStatusID;
     }
 
+    public String toReport() {
+        return "ID полёта: " + flightID
+                + "\nВремя вылета: " + depTime
+                + "\nВремя прилёта: " + arrTime
+                + "\nВзаимодействующий аэропорт: " + IATACode
+                + "\nПрибывающий: " + (isArrival ? "Да" : "Нет")
+                + "\nID самолёта: " + planeID
+                + "\nСтатус рейса: " + flightStatusID;
+    }
+
     public static class FlightBuilder {
         private int flightID;
         private Timestamp depTime;

@@ -47,6 +47,13 @@ public class Plane implements Entity {
         return Objects.hash(planeID, planeModel, planeNumber, seatsQuantity);
     }
 
+    public String toReport() {
+        return "ID самолёта: " + planeID
+                + "\nМодель: " + planeModel
+                + "\nРег.номер: " + planeNumber
+                + "\nКол-во мест: " + seatsQuantity;
+    }
+
     public static class PlaneBuilder {
         private int planeID;
         private String planeModel;

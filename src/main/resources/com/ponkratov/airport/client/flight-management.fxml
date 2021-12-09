@@ -12,9 +12,11 @@
 
 <AnchorPane prefHeight="460.0" prefWidth="765.0" stylesheets="@styles/content-style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ponkratov.airport.client.FlightManagementController">
    <children>
-      <AnchorPane fx:id="viewPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0" visible="false">
+      <AnchorPane fx:id="viewPane" layoutY="50.0" prefHeight="410.0" prefWidth="765.0">
          <TableView fx:id="contentTableView" layoutX="15.0" layoutY="20.0" prefHeight="400.0" prefWidth="485.0" />
          <Button fx:id="editNavigationButton" layoutX="535.0" layoutY="365.0" mnemonicParsing="false" onAction="#onEditNavigationButton" text="Редактировать" />
+         <Button fx:id="reportButton" layoutX="535.0" layoutY="325.0" mnemonicParsing="false" onAction="#onReportButton" prefHeight="30.0" prefWidth="100.0" style="-fx-pref-width: 200;" text="Отчёт" />
+         <Button fx:id="chartButton" layoutX="535.0" layoutY="285.0" mnemonicParsing="false" onAction="#onChartButton" prefHeight="30.0" prefWidth="100.0" style="-fx-pref-width: 200;" text="График" />
       </AnchorPane>
       <Button fx:id="addButton" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddButton" stylesheets="@styles/content-style.css" text="Добавление" />
       <Button fx:id="editButton" layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#onEditButton" stylesheets="@styles/content-style.css" text="Редактирование" />

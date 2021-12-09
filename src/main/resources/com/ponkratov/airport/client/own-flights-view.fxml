@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
@@ -8,11 +9,12 @@
 
 <AnchorPane prefHeight="460.0" prefWidth="765.0" stylesheets="@styles/content-style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ponkratov.airport.client.OwnFlightsViewController">
     <TableView fx:id="contentTableView" layoutX="15.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" style="-fx-pref-width: 530;" />
-    <Label fx:id="messageLabel" layoutX="15.0" layoutY="430.0" prefWidth="450.0" text="Сообщение" />
+    <Label fx:id="messageLabel" alignment="CENTER" layoutX="15.0" layoutY="430.0" prefWidth="420.0" text="Сообщение" />
     <Label fx:id="menuHeaderLabel" layoutX="620.0" layoutY="5.0" text="Вылеты" />
     <Label fx:id="planeNumberLabel" layoutX="555.0" layoutY="60.0" text="Рег.номер самолёта:" />
     <TextField fx:id="planeNumberField" editable="false" layoutX="555.0" layoutY="80.0" promptText="Рег.номер самолёта" />
     <Label fx:id="flightStatusLabel" layoutX="555.0" layoutY="130.0" text="Статус рейса:" />
     <TextField fx:id="flightStatusNameField" editable="false" layoutX="555.0" layoutY="150.0" promptText="Статус рейса" />
     <DatePicker fx:id="depTimePicker" layoutX="420.0" layoutY="10.0" promptText="Вылет" />
+    <Button fx:id="reportButton" layoutX="445.0" layoutY="425.0" mnemonicParsing="false" onAction="#onReportButton" prefHeight="30.0" prefWidth="100.0" text="Отчёт" />
 </AnchorPane>

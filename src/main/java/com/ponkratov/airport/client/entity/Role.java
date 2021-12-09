@@ -19,4 +19,9 @@ public class Role implements Entity {
     public String getRoleName() {
         return roleName;
     }
+
+    @Override
+    public String toReport() {
+        return null;
+    }
 }

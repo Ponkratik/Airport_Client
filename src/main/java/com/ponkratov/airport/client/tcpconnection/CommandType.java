@@ -16,6 +16,7 @@ public class CommandType {
     public static String BLOCKUSER = "BLOCKUSER";
     public static String UPDATEUSERROLE = "UPDATEUSERROLE";
     public static String UPDATEUSER = "UPDATEUSER";
+    public static String COUNTUSERSFOREACHROLE = "COUNTUSERSFOREACHROLE";
 
     public static String FINDALLROLES = "FINDALLROLES";
     public static String FINDROLEBYID = "FINDROLEBYID";
@@ -38,6 +39,7 @@ public class CommandType {
     public static String CREATEFLIGHT = "CREATEFLIGHT";
     public static String UPDATEFLIGHT = "UPDATEFLIGHT";
     public static String FINDOWNFLIGHTS = "FINDOWNFLIGHTS";
+    public static String COUNTFLIGHTSFOREACHAIRPORT = "COUNTFLIGHTSFOREACHAIRPORT";
 
     public static String FINDALLAIRPORTS = "FINDALLAIRPORTS";
 

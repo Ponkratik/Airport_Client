@@ -3,17 +3,19 @@ package com.ponkratov.airport.client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class BaseMenu extends Application {
     Stage stage = new Stage();
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
-    }*/
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -28,6 +30,7 @@ public class BaseMenu extends Application {
     }
 
     public void showWindow() throws IOException {
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/airport.png"))));
         start(stage);
     }
 }

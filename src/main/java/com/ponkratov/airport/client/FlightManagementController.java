@@ -4,12 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.*;
 import com.ponkratov.airport.client.tcpconnection.*;
+import com.ponkratov.airport.client.util.PieChartGenerator;
+import com.ponkratov.airport.client.util.TextReportGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -19,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FlightManagementController {
 
@@ -93,6 +97,12 @@ public class FlightManagementController {
 
     @FXML
     public Spinner<Integer> arrMSpinner;
+
+    @FXML
+    public Button reportButton;
+
+    @FXML
+    public Button chartButton;
 
     private TableView.TableViewSelectionModel<Flight> selectionModel;
 
@@ -508,5 +518,28 @@ public class FlightManagementController {
             messageLabel.setText(response.getResponseMessage());
             return "";
         }
+    }
+
+    public void onReportButton(ActionEvent actionEvent) {
+        TextReportGenerator<Flight> reportGenerator= new TextReportGenerator<>();
+        boolean isGenerated = reportGenerator.generateReport(reportButton.getScene().getWindow(), contentTableView.getItems());
+        if (!isGenerated) {
+            messageLabel.setText("Не удалось сгенерировать отчёт");
+        }
+    }
+
+    public void onChartButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        PieChartWindow window = new PieChartWindow();
+        window.stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/airport.png"))));
+        PieChartGenerator.setMenuHeaderLabel("Доля полётов по аэропортам");
+        Map<String, Integer> data;
+        Request request = new Request();
+        request.setRequestCommand(CommandType.COUNTFLIGHTSFOREACHAIRPORT);
+        ClientSocket.getOos().writeObject(new ObjectMapper().writeValueAsString(request));
+        CommandResult response = new ObjectMapper().readValue((String) ClientSocket.getOis().readObject(), CommandResult.class);
+        messageLabel.setText(response.getResponseMessage());
+        data = (Map<String, Integer>) new ObjectMapper().readValue(response.getResponseData(), Map.class);
+        PieChartGenerator.setPieChartData(data);
+        window.showWindow();
     }
 }

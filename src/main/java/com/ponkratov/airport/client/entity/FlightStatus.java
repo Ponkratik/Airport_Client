@@ -19,4 +19,9 @@ public class FlightStatus implements Entity {
     public String getStatusName() {
         return statusName;
     }
+
+    @Override
+    public String toReport() {
+        return null;
+    }
 }
