@@ -3,6 +3,9 @@ package com.ponkratov.airport.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ponkratov.airport.client.entity.Role;
 import com.ponkratov.airport.client.tcpconnection.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,8 +73,7 @@ public class BaseMenuController {
     private Button userManagementButton;
 
     public void initialize() throws IOException, ClassNotFoundException {
-        currentDateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        currentTimeLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        initClock();
         currentUserLabel.setText(ClientSocket.getCurrnetUser().getLastName() + " "
                 + ClientSocket.getCurrnetUser().getFirstName() + " "
                 + ClientSocket.getCurrnetUser().getSurName());
@@ -80,7 +84,6 @@ public class BaseMenuController {
                 mainMenu.getChildren().add(userManagementButton);
                 mainMenu.getChildren().add(planeManagementButton);
                 mainMenu.getChildren().add(flightManagementButton);
-                mainMenu.getChildren().add(ownFlightsTabloButton);
             }
             case 2 -> {
                 mainMenu.getChildren().add(flightManagementButton);
@@ -95,8 +98,16 @@ public class BaseMenuController {
         mainMenu.getChildren().add(airportTabloButton);
         mainMenu.getChildren().add(settingsButton);
 
-        //TODO: Поменять на страницу табло аэропорта
-        onSettingsButton(null);
+        onAirportTabloButton(null);
+    }
+
+    public void initClock() {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            currentDateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+            currentTimeLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        }), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 
     public void onUserManagementButton(ActionEvent event) throws IOException {

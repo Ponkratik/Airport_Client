@@ -6,14 +6,19 @@ import com.ponkratov.airport.client.tcpconnection.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainWindowController {
 
@@ -49,6 +54,8 @@ public class MainWindowController {
         } catch (ConnectException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/airport.png"))));
             alert.setHeaderText("Невозможно подключиться к серверу");
             alert.setContentText("Вероятно, сервер не запущен");
             alert.showAndWait();

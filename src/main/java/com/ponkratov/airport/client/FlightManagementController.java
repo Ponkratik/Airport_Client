@@ -181,6 +181,7 @@ public class FlightManagementController {
         addButton.setStyle("-fx-text-fill: #122A3A; -fx-background-color: transparent");
         editButton.setStyle("-fx-text-fill: #122A3A; -fx-background-color: transparent");
         viewButton.setStyle("-fx-background-color: #584694; -fx-text-fill: #FFFFFF");
+        selectionModel.selectFirst();
     }
 
     public void onEditNavigationButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {

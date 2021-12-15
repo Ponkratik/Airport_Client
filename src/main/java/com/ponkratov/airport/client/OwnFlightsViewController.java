@@ -6,6 +6,7 @@ import com.ponkratov.airport.client.entity.FlightStatus;
 import com.ponkratov.airport.client.entity.Plane;
 import com.ponkratov.airport.client.tcpconnection.*;
 import com.ponkratov.airport.client.util.TextReportGenerator;
+import com.ponkratov.airport.client.util.WeatherMapGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -84,6 +85,19 @@ public class OwnFlightsViewController {
                     e.printStackTrace();
                 }
             }
+        });
+
+        contentTableView.setRowFactory( tv -> {
+            TableRow<Flight> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    boolean isGenerated = new WeatherMapGenerator().generateWeatherMap(contentTableView.getScene().getWindow(), row.getItem());
+                    if (!isGenerated) {
+                        messageLabel.setText("Не удалось сгенерировать карту погоды");
+                    }
+                }
+            });
+            return row ;
         });
 
         depTimePicker.getEditor().textProperty().addListener((observableValue, date, t1) -> {

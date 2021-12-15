@@ -16,5 +16,5 @@
     <TextField fx:id="planeNumberField" editable="false" layoutX="555.0" layoutY="80.0" promptText="Рег.номер самолёта" />
     <Label fx:id="flightStatusLabel" layoutX="555.0" layoutY="130.0" text="Статус рейса:" />
     <TextField fx:id="flightStatusNameField" editable="false" layoutX="555.0" layoutY="150.0" promptText="Статус рейса" />
-    <Button fx:id="reportButton" layoutX="445.0" layoutY="425.0" mnemonicParsing="false" onAction="#onReportButton" prefHeight="30.0" prefWidth="100.0" text="Сохранить" />
+    <Button fx:id="reportButton" layoutX="475.0" layoutY="425.0" mnemonicParsing="false" onAction="#onReportButton" prefHeight="30.0" prefWidth="150.0" text="Отчёт" />
 </AnchorPane>
